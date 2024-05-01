@@ -14,6 +14,7 @@ enum PhotoListModule {
     }
     
     struct Item: Hashable {
+        let uniqueId: UUID
         let id: Int
         let title: String
         let previewImageUrl: URL
@@ -21,6 +22,7 @@ enum PhotoListModule {
         let author: String
         
         func hash(into hasher: inout Hasher) {
+            hasher.combine(uniqueId)
             hasher.combine(id)
             hasher.combine(title)
             hasher.combine(previewImageUrl)
@@ -29,7 +31,8 @@ enum PhotoListModule {
         }
 
         static func == (lhs: Item, rhs: Item) -> Bool {
-            return lhs.id == rhs.id
+            return lhs.uniqueId == rhs.uniqueId
+                && lhs.id == rhs.id
                 && lhs.title == rhs.title
                 && lhs.previewImageUrl == rhs.previewImageUrl
                 && lhs.imageUrl == rhs.imageUrl

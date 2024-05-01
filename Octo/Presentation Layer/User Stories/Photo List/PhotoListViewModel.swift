@@ -58,7 +58,13 @@ final class PhotoListViewModel {
         guard items.indices.contains(indexPath.row) else { return }
         
         let item = items[indexPath.row]
-        let detailItem = PhotoDetailModule.Item(id: item.id, title: item.title, imageUrl: item.imageUrl, author: item.author)
+        let detailItem = PhotoDetailModule.Item(
+            uniqueId: item.uniqueId,
+            id: item.id,
+            title: item.title,
+            imageUrl: item.imageUrl,
+            author: item.author
+        )
 
         openPhotoDetailSubject.send(detailItem)
     }
@@ -120,6 +126,7 @@ final class PhotoListViewModel {
         else { return nil }
 
         let item = PhotoListModule.Item(
+            uniqueId: UUID(),
             id: photo.id,
             title: photo.alt,
             previewImageUrl: previewImageUrl,

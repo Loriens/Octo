@@ -9,12 +9,14 @@ import Foundation
 
 enum PhotoDetailModule {
     struct Item: Hashable {
+        let uniqueId: UUID
         let id: Int
         let title: String
         let imageUrl: URL
         let author: String
         
         func hash(into hasher: inout Hasher) {
+            hasher.combine(uniqueId)
             hasher.combine(id)
             hasher.combine(title)
             hasher.combine(imageUrl)
@@ -22,7 +24,8 @@ enum PhotoDetailModule {
         }
 
         static func == (lhs: Item, rhs: Item) -> Bool {
-            return lhs.id == rhs.id
+            return lhs.uniqueId == rhs.uniqueId
+                && lhs.id == rhs.id
                 && lhs.title == rhs.title
                 && lhs.imageUrl == rhs.imageUrl
                 && lhs.author == rhs.author
